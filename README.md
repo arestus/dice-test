@@ -42,6 +42,7 @@ next-dice/
 │       ├── layout.tsx             # Root layout component
 │       └── page.tsx               # Main game page with logic
 ├── public/                        # Static assets
+├── .github/workflows/deploy.yml   # GitHub Actions deployment
 ├── constants.ts                   # Game constants and messages
 ├── package.json                   # Dependencies and scripts
 ├── tsconfig.json                  # TypeScript configuration
@@ -102,6 +103,47 @@ next-dice/
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint for code quality
+
+## 🌐 Deployment to GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+### 🔧 Setup Instructions
+
+1. **Push your code to GitHub**
+
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push origin main
+   ```
+
+2. **Enable GitHub Pages**
+
+   - Go to your repository settings
+   - Navigate to **Pages** section
+   - Under **Source**, select **GitHub Actions**
+
+3. **Configure for subdirectory deployment (if needed)**
+   If deploying to `username.github.io/repository-name`, uncomment these lines in `next.config.ts`:
+
+   ```typescript
+   basePath: '/next-dice',
+   assetPrefix: '/next-dice/',
+   ```
+
+4. **Automatic Deployment**
+   - Every push to `main` branch triggers automatic deployment
+   - View deployment status in the **Actions** tab
+   - Site will be available at `https://username.github.io/repository-name`
+
+### 📋 Deployment Features
+
+- ✅ **Automatic builds** on every push to main
+- ✅ **Static site generation** optimized for GitHub Pages
+- ✅ **Asset optimization** with unoptimized images for static export
+- ✅ **Trailing slash handling** for proper routing
+- ✅ **Jekyll bypass** with `.nojekyll` file
 
 ## 🎯 Game Logic
 
