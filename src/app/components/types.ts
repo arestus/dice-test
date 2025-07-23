@@ -4,4 +4,6 @@ interface ResultHistory {
   result: string;
 }
 
-export type { ResultHistory };
+type AlertMessage = "success" | "error";
+
+export type { ResultHistory, AlertMessage };

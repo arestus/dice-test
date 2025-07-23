@@ -7,8 +7,9 @@ import {
   ResultsHistory,
 } from "@/app/components";
 import { Box, Container } from "@mui/material";
-import { ResultHistory } from "./components/types";
-import { useState } from "react";
+import { AlertMessage, ResultHistory } from "./components/types";
+import { useState, useRef, useEffect } from "react";
+import { OVER, REASON_MESSAGE, UNDER } from "../../constants";
 
 export default function Home() {
   const [result, setResult] = useState<ResultHistory[]>([]);
@@ -18,9 +19,18 @@ export default function Home() {
   const [currentResult, setCurrentResult] = useState<number | null>(null);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState<{
-    type: "success" | "error";
+    type: AlertMessage;
     reason?: string;
   }>({ type: "success", reason: "" });
+  const alertTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (alertTimeoutRef.current) {
+        clearTimeout(alertTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const playGame = async () => {
     setIsGameStarted(true);
@@ -32,7 +42,7 @@ export default function Home() {
 
     const newEntry: ResultHistory = {
       time: new Date().toLocaleTimeString(),
-      guess: `${isUnder ? "Under" : "Over"} ${diceValue}`,
+      guess: `${isUnder ? UNDER : OVER} ${diceValue}`,
       result: `${gameResult} - ${isWin ? "Win" : "Loss"}`,
     };
 
@@ -46,13 +56,18 @@ export default function Home() {
         ? { type: "success", reason: "" }
         : {
             type: "error",
-            reason: isUnder ? "Number was higher" : "Number was lower",
+            reason: isUnder ? REASON_MESSAGE.UNDER : REASON_MESSAGE.OVER,
           }
     );
     setShowAlert(true);
 
-    setTimeout(() => {
+    if (alertTimeoutRef.current) {
+      clearTimeout(alertTimeoutRef.current);
+    }
+
+    alertTimeoutRef.current = setTimeout(() => {
       setShowAlert(false);
+      alertTimeoutRef.current = null;
     }, 3000);
     setIsGameStarted(false);
   };

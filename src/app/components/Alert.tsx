@@ -1,10 +1,12 @@
 import { Alert, Container, Typography } from "@mui/material";
+import { AlertMessage } from "./types";
+import { ALERT_MESSAGE, TYPE } from "../../../constants";
 
 export default function CustomAlert({
   type,
   failureReason,
 }: {
-  type: "success" | "error";
+  type: AlertMessage;
   failureReason?: string;
 }) {
   return (
@@ -20,9 +22,9 @@ export default function CustomAlert({
         }}
       >
         <Typography sx={{ fontSize: "16px" }}>
-          {type === "success" ? "You won" : "You lost"}
+          {type === TYPE.SUCCESS ? ALERT_MESSAGE.SUCCESS : ALERT_MESSAGE.ERROR}
         </Typography>
-        {type === "error" && (
+        {type === TYPE.ERROR && (
           <Typography sx={{ fontSize: "14px" }}>{failureReason}</Typography>
         )}
       </Alert>

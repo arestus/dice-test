@@ -42,7 +42,7 @@ export default function GameOptions({
         >
           <FormControlLabel
             value="under"
-            control={<Radio />}
+            control={<Radio color="secondary" />}
             label="Under"
             labelPlacement="start"
             checked={isUnder}
@@ -50,7 +50,7 @@ export default function GameOptions({
           />
           <FormControlLabel
             value="over"
-            control={<Radio />}
+            control={<Radio color="secondary" />}
             label="Over"
             labelPlacement="start"
             checked={!isUnder}
@@ -65,8 +65,9 @@ export default function GameOptions({
           valueLabelDisplay="auto"
           sx={{ width: "320px" }}
           value={diceValue}
+          color="secondary"
           min={1}
-          max={99}
+          max={100}
           onChange={(event, newValue) => setDiceValue(newValue as number)}
         />
         <Box
@@ -77,13 +78,13 @@ export default function GameOptions({
             justifyContent: "space-between",
           }}
         >
-          <Typography>1</Typography>
-          <Typography>99</Typography>
+          <Typography>0</Typography>
+          <Typography>100</Typography>
         </Box>
       </Box>
       <Button
         variant="contained"
-        color="primary"
+        color="secondary"
         sx={{ width: "320px", height: "42px" }}
         onClick={onPlay}
         disabled={isGameStarted}
