@@ -1,6 +1,10 @@
-import { Box, Card, CardContent, Typography } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 
-export default function ResultField() {
+export default function ResultField({
+  currentResult,
+}: {
+  currentResult: number | null;
+}) {
   return (
     <Box
       sx={{
@@ -23,7 +27,9 @@ export default function ResultField() {
           alignItems: "center",
         }}
       >
-        <Typography sx={{ fontSize: "96px", fontWeight: 300 }}>100</Typography>
+        <Typography sx={{ fontSize: "96px", fontWeight: 300 }}>
+          {currentResult !== null ? currentResult : "?"}
+        </Typography>
       </Card>
     </Box>
   );

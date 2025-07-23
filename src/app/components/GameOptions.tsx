@@ -10,12 +10,14 @@ export default function GameOptions({
   diceValue,
   setDiceValue,
   setIsUnder,
+  onPlay,
 }: {
   isGameStarted: boolean;
   isUnder: boolean;
   diceValue: number;
   setDiceValue: (value: number) => void;
   setIsUnder: (value: boolean) => void;
+  onPlay: () => void;
 }) {
   return (
     <Box
@@ -44,7 +46,7 @@ export default function GameOptions({
             label="Under"
             labelPlacement="start"
             checked={isUnder}
-            onChange={() => setIsUnder(!isUnder)}
+            onChange={() => setIsUnder(true)}
           />
           <FormControlLabel
             value="over"
@@ -52,7 +54,7 @@ export default function GameOptions({
             label="Over"
             labelPlacement="start"
             checked={!isUnder}
-            onChange={() => setIsUnder(!isUnder)}
+            onChange={() => setIsUnder(false)}
           />
         </RadioGroup>
       </FormControl>
@@ -63,6 +65,8 @@ export default function GameOptions({
           valueLabelDisplay="auto"
           sx={{ width: "320px" }}
           value={diceValue}
+          min={1}
+          max={99}
           onChange={(event, newValue) => setDiceValue(newValue as number)}
         />
         <Box
@@ -73,15 +77,17 @@ export default function GameOptions({
             justifyContent: "space-between",
           }}
         >
-          <Typography>0</Typography>
-          <Typography>100</Typography>
+          <Typography>1</Typography>
+          <Typography>99</Typography>
         </Box>
       </Box>
       <Button
-        disabled={isGameStarted}
         variant="contained"
         color="primary"
         sx={{ width: "320px", height: "42px" }}
+        onClick={onPlay}
+        disabled={isGameStarted}
+        loading={isGameStarted}
       >
         Play
       </Button>

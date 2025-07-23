@@ -1,11 +1,11 @@
-import { Alert, Container } from "@mui/material";
+import { Alert, Container, Typography } from "@mui/material";
 
 export default function CustomAlert({
   type,
   failureReason,
 }: {
   type: "success" | "error";
-  failureReason: string;
+  failureReason?: string;
 }) {
   return (
     <Container maxWidth="md">
@@ -19,7 +19,12 @@ export default function CustomAlert({
           maxHeight: "76px",
         }}
       >
-        {failureReason}
+        <Typography sx={{ fontSize: "16px" }}>
+          {type === "success" ? "You won" : "You lost"}
+        </Typography>
+        {type === "error" && (
+          <Typography sx={{ fontSize: "14px" }}>{failureReason}</Typography>
+        )}
       </Alert>
     </Container>
   );
