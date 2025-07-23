@@ -4,7 +4,19 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import { Box, Button, Slider, Typography } from "@mui/material";
 
-export default function GameOptions() {
+export default function GameOptions({
+  isGameStarted,
+  isUnder,
+  diceValue,
+  setDiceValue,
+  setIsUnder,
+}: {
+  isGameStarted: boolean;
+  isUnder: boolean;
+  diceValue: number;
+  setDiceValue: (value: number) => void;
+  setIsUnder: (value: boolean) => void;
+}) {
   return (
     <Box
       sx={{
@@ -31,21 +43,27 @@ export default function GameOptions() {
             control={<Radio />}
             label="Under"
             labelPlacement="start"
+            checked={isUnder}
+            onChange={() => setIsUnder(!isUnder)}
           />
           <FormControlLabel
             value="over"
             control={<Radio />}
             label="Over"
             labelPlacement="start"
+            checked={!isUnder}
+            onChange={() => setIsUnder(!isUnder)}
           />
         </RadioGroup>
       </FormControl>
       <Box>
         <Slider
-          defaultValue={50}
+          defaultValue={diceValue}
           aria-label="Default"
           valueLabelDisplay="auto"
           sx={{ width: "320px" }}
+          value={diceValue}
+          onChange={(event, newValue) => setDiceValue(newValue as number)}
         />
         <Box
           sx={{
@@ -60,6 +78,7 @@ export default function GameOptions() {
         </Box>
       </Box>
       <Button
+        disabled={isGameStarted}
         variant="contained"
         color="primary"
         sx={{ width: "320px", height: "42px" }}

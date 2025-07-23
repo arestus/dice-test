@@ -1,3 +1,5 @@
+"use client";
+
 import {
   CustomAlert,
   GameOptions,
@@ -5,8 +7,19 @@ import {
   ResultsHistory,
 } from "@/app/components";
 import { Container } from "@mui/material";
+import { ResultHistory } from "./components/types";
+import { useState } from "react";
 
 export default function Home() {
+  const [result, setResult] = useState<ResultHistory[]>([]);
+  const [isGameStarted, setIsGameStarted] = useState(false);
+  const [isUnder, setIsUnder] = useState(false);
+  const [diceValue, setDiceValue] = useState(0);
+
+  const handleGameStart = () => {
+    setIsGameStarted(true);
+  };
+
   return (
     <div
       style={{
@@ -30,7 +43,13 @@ export default function Home() {
         }}
       >
         <ResultField />
-        <GameOptions />
+        <GameOptions
+          isGameStarted={isGameStarted}
+          isUnder={isUnder}
+          diceValue={diceValue}
+          setDiceValue={setDiceValue}
+          setIsUnder={setIsUnder}
+        />
         <ResultsHistory />
       </Container>
     </div>
