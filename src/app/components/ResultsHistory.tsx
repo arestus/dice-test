@@ -12,7 +12,6 @@ export default function ResultsHistory({
 }: {
   history: ResultHistory[];
 }) {
-  console.log(history);
   return (
     <TableContainer
       sx={{ border: "none", alignItems: "center", maxWidth: "600px" }}
